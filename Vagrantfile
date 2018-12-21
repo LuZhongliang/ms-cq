@@ -26,6 +26,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   #Provision scripts
   config.vm.provision "shell",  inline: <<-SCRIPT
+    sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+    sudo sh -c 'cat /vagrant/mirror-aliyun > /etc/apt/sources.list'
     curl -fsSL https://get.docker.com | sudo bash -s docker --mirror Aliyun
     sudo apt update -y
     sudo apt dist-upgrade -y
