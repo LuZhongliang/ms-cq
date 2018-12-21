@@ -2,6 +2,7 @@ version: "2"
 
 services:
   microservice:
+    restart: on-failure
     depends_on:
       - mysql
     build: .
@@ -11,6 +12,7 @@ services:
       - "80:8080"
 
   mysql:
+    restart: always
     image: registry.docker-cn.com/library/mysql
     ports:
       - "3306:3306"
