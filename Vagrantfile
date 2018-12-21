@@ -26,12 +26,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   #Provision scripts
   config.vm.provision "shell",  inline: <<-SCRIPT
+    # Add jenkins key
+    wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+    # Add debian package sources
+    sudo sh -c 'echo "deb https://pkg.jenkins.io/debian-stable binary/" >> /etc/apt/sources.list'
+    
+    # Add docker key
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    
+    # Add docker repository
+    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
+    
     sudo apt update -y
     sudo apt dist-upgrade -y
-    sudo apt install -y openjdk-8-jdk
-    curl -fsSL https://get.docker.com | sudo bash -s docker --mirror Aliyun
+    sudo apt install -y openjdk-8-jdk jenkins docker-compose
     sudo usermod -aG docker vagrant
-    sudo docker run -d --name jenkins -v jenkins_home:/var/jenkins_home -p 8080:8080 -p 50000:50000 jenkins/jenkins:lts
+    
   SCRIPT
 
 end

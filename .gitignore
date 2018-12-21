@@ -23,4 +23,9 @@
 hs_err_pid*
 .vagrant/
 .DS_Store
+.classpath
+.gradle/
 .idea/
+.project
+.settings/
+bin/
