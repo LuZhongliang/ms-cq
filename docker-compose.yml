@@ -1,7 +1,5 @@
-
-  # environment:
-  #   - MYSQL_ROOT_PASSWORD=new    
 version: "2"
+
 services:
 
   microservice:
@@ -15,14 +13,11 @@ services:
 
   mysql:
     image: registry.docker-cn.com/library/mysql
-    # build:
-    #   context: .
-    #   dockerfile: DB-dockerfile
-    # command: --default-authentication-plugin=mysql_native_password
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
     volumes:
       - "./conf.d:/etc/mysql/conf.d:ro"
       - "./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql:ro"
+      - "./mysql/data:/var/lib/mysql"
