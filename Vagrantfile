@@ -26,20 +26,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   #Provision scripts
   config.vm.provision "shell",  inline: <<-SCRIPT
-    # Add jenkins key
+    sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+    sudo sh -c 'cat /vagrant/mirror-aliyun > /etc/apt/sources.list' # 采用 阿里云 安装源
+    # 添加 jenkins 安装源
     wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
     # Add debian package sources
     sudo sh -c 'echo "deb https://pkg.jenkins.io/debian-stable binary/" >> /etc/apt/sources.list'
-    sudo apt update -y
-    # Add docker key
+    # sudo apt update -y
+    # 添加 docker 安装源
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-    # Add docker repository
     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
     sudo apt update -y
     sudo apt dist-upgrade -y
-    sudo apt install -y openjdk-8-jdk jenkins docker-compose
-    sudo usermod -aG docker vagrant
-    
-  SCRIPT
+    sudo apt install -y jenkins docker-compose
+    sudo usermod -aG docker vagrant # 使用户 vagrant 可以直接运行 docker 
+    sudo usermod -aG docker jenkins # 使用户 jenkins 可以直接运行 docker 
+    sudo service jenkins restart # 使jenkins 用户使用 docker 权限生效
+   SCRIPT
 
 end

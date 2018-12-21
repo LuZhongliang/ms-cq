@@ -27,5 +27,8 @@ hs_err_pid*
 .idea/
 .project
 .settings/
+.vscode/
+.bash_history
 bin/
-build/libs/
+build/
+out/
