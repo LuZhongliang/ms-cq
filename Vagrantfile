@@ -38,7 +38,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
     sudo apt update -y
     sudo apt dist-upgrade -y
-    sudo apt install -y jenkins docker-compose
+    sudo apt install -y jenkins docker-compose htop
     sudo usermod -aG docker vagrant # 使用户 vagrant 可以直接运行 docker 
     sudo usermod -aG docker jenkins # 使用户 jenkins 可以直接运行 docker 
     sudo service jenkins restart # 使jenkins 用户使用 docker 权限生效
