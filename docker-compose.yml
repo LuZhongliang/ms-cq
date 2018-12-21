@@ -1,15 +1,14 @@
 version: "2"
 
 services:
-
   microservice:
     depends_on:
       - mysql
     build: .
     links:
-       - mysql:db
+      - mysql:db
     ports:
-     - "80:8080"
+      - "80:8080"
 
   mysql:
     image: registry.docker-cn.com/library/mysql
@@ -20,4 +19,3 @@ services:
     volumes:
       - "./conf.d:/etc/mysql/conf.d:ro"
       - "./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql:ro"
-      - "./mysql/data:/var/lib/mysql"

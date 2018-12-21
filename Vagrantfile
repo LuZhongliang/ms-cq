@@ -10,7 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provider "virtualbox" do |v|
     v.name = "microservice"
-    v.memory = 2048
+    v.memory = 4096
     v.cpus = 2
   end
 
@@ -42,6 +42,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     sudo usermod -aG docker vagrant # 使用户 vagrant 可以直接运行 docker 
     sudo usermod -aG docker jenkins # 使用户 jenkins 可以直接运行 docker 
     sudo service jenkins restart # 使jenkins 用户使用 docker 权限生效
-   SCRIPT
-
+    # docker run -d --name mysql --restart always -e MYSQL_RANDOM_ROOT_PASSWORD=yes -v /vagrant/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql:ro registry.docker-cn.com/library/mysql
+  SCRIPT
+   
 end
