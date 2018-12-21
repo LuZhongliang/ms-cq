@@ -5,6 +5,8 @@ version: "2"
 services:
 
   microservice:
+    depends_on:
+      - mysql
     build: .
     links:
        - mysql:db
