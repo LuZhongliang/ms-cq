@@ -28,7 +28,7 @@ public class MainController {
 		n.setEmail(email);
 		n.setPassword(password);
 		userRepository.save(n);
-		return "Saved";
+		return String.valueOf(n.getId());
 	}
 	
 	@GetMapping(path="/all")
